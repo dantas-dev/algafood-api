@@ -1,5 +1,6 @@
 package com.dantas.algafood.api.controller.exceptions;
 
+import com.dantas.algafood.doman.servicies.exceptions.BadRequestException;
 import com.dantas.algafood.doman.servicies.exceptions.EntityInUseException;
 import com.dantas.algafood.doman.servicies.exceptions.ObjectExistingException;
 import com.dantas.algafood.doman.servicies.exceptions.ObjectNotFoundException;
@@ -27,5 +28,11 @@ public class ControllerExceptionHandler {
     public ResponseEntity<StandardError> entityInUse(EntityInUseException e) {
         StandardError error = new StandardError(HttpStatus.CONFLICT.value(), e.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<StandardError> badRequest(BadRequestException e) {
+        StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }

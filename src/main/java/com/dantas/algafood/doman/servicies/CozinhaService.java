@@ -41,7 +41,7 @@ public class CozinhaService {
         try {
             repository.delete(obj.get());
         } catch (EntityInUseException e) {
-            e.getReturneMessage(id);
+            e.getReturneMessage();
         }
     }
 

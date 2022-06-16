@@ -10,7 +10,7 @@ public class EntityInUseException extends RuntimeException {
         super(message, cause);
     }
 
-    public String getReturneMessage(Long id) {
-        return String.format("Objeto com ID: %d não pode ser removido, pois está em uso", id);
+    public String getReturneMessage() {
+        return "Objeto não pode ser removido, pois está em uso";
     }
 }

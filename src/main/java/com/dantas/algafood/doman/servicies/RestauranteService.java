@@ -4,6 +4,7 @@ import com.dantas.algafood.doman.model.Cozinha;
 import com.dantas.algafood.doman.model.Restaurante;
 import com.dantas.algafood.doman.repositories.CozinhaRepository;
 import com.dantas.algafood.doman.repositories.RestauranteRepository;
+import com.dantas.algafood.doman.servicies.exceptions.BadRequestException;
 import com.dantas.algafood.doman.servicies.exceptions.EntityInUseException;
 import com.dantas.algafood.doman.servicies.exceptions.ObjectExistingException;
 import com.dantas.algafood.doman.servicies.exceptions.ObjectNotFoundException;
@@ -46,7 +47,7 @@ public class RestauranteService {
         try {
             repository.delete(obj.get());
         } catch (EntityInUseException e) {
-            e.getReturneMessage(id);
+            e.getReturneMessage();
         }
     }
 
@@ -76,8 +77,8 @@ public class RestauranteService {
     private void objectCozinhaNotExistent(Long id) {
         final var obj = cozinhaRepository.findById(id);
         if (obj.isEmpty()) {
-            throw new ObjectNotFoundException("Objeto não encontrado ID: "
-                    + id + " do tipo: " + Cozinha.class.getName());
+            throw new BadRequestException("Não existe Cozinha com o ID: "
+                    + id);
         }
     }
 

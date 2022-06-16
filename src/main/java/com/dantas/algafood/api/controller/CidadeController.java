@@ -1,7 +1,7 @@
 package com.dantas.algafood.api.controller;
 
-import com.dantas.algafood.doman.model.Estado;
-import com.dantas.algafood.doman.servicies.EstadoService;
+import com.dantas.algafood.doman.model.Cidade;
+import com.dantas.algafood.doman.servicies.CidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,39 +10,39 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/estados")
-public class EstadoController {
+@RequestMapping(value = "/cidades")
+public class CidadeController {
 
     @Autowired
-    private EstadoService service;
+    private CidadeService service;
 
     @GetMapping
-    public ResponseEntity<List<Estado>> findAll() {
+    public ResponseEntity<List<Cidade>> findAll() {
         final var obj = service.findAll();
         return ResponseEntity.ok(obj);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Estado> findById(@PathVariable Long id){
+    public ResponseEntity<Cidade> findById(@PathVariable Long id) {
         final var obj = service.findById(id);
         return ResponseEntity.ok(obj);
     }
 
     @PostMapping
-    public ResponseEntity<Estado> save(@RequestBody Estado estado) {
-        final var obj = service.save(estado);
+    public ResponseEntity<Cidade> save(@RequestBody Cidade cidade) {
+        final var obj = service.save(cidade);
         return ResponseEntity.status(HttpStatus.CREATED).body(obj);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Estado> delete(@PathVariable Long id) {
+    public ResponseEntity<Cidade> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Estado> update(@PathVariable Long id, @RequestBody Estado estado) {
-        final var update = service.update(id, estado);
+    public ResponseEntity<Cidade> update(@PathVariable Long id, @RequestBody Cidade cidade) {
+        final var update = service.update(id, cidade);
         return ResponseEntity.ok(update);
     }
 }
