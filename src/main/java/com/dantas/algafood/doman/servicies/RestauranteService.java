@@ -1,6 +1,8 @@
 package com.dantas.algafood.doman.servicies;
 
+import com.dantas.algafood.doman.model.Cozinha;
 import com.dantas.algafood.doman.model.Restaurante;
+import com.dantas.algafood.doman.repositories.CozinhaRepository;
 import com.dantas.algafood.doman.repositories.RestauranteRepository;
 import com.dantas.algafood.doman.servicies.exceptions.EntityInUseException;
 import com.dantas.algafood.doman.servicies.exceptions.ObjectExistingException;
@@ -16,6 +18,9 @@ public class RestauranteService {
     @Autowired
     private RestauranteRepository repository;
 
+    @Autowired
+    private CozinhaRepository cozinhaRepository;
+
     public List<Restaurante> findAll() {
         return repository.findAll();
     }
@@ -28,6 +33,7 @@ public class RestauranteService {
 
     public Restaurante save(Restaurante restaurante) {
         requireNonExistentObjectInDB(restaurante);
+        objectCozinhaNotExistent(restaurante.getCozinha().getId());
         return repository.save(restaurante);
     }
 
@@ -51,6 +57,7 @@ public class RestauranteService {
                     + id + " do tipo: " + Restaurante.class.getName());
         }
         requireNonExistentObjectInDB(restaurante);
+        objectCozinhaNotExistent(restaurante.getCozinha().getId());
         obj.get().setNome(restaurante.getNome());
         obj.get().setTaxaFrete(restaurante.getTaxaFrete());
         obj.get().setCozinha(restaurante.getCozinha());
@@ -58,13 +65,19 @@ public class RestauranteService {
     }
 
     private void requireNonExistentObjectInDB(Restaurante restaurante) {
-        final var obj = repository.findAll();
-        for (Restaurante list : obj) {
-            if (restaurante.getNome().equals(list.getNome())) {
-                throw new ObjectExistingException("Um objeto com o nome: "
-                        + restaurante.getNome() + " do tipo: "
-                        + Restaurante.class.getName() + " já existe!");
-            }
+        final var obj = repository.findByNome(restaurante.getNome());
+        if (obj != null) {
+            throw new ObjectExistingException("Um objeto com o nome: "
+                    + restaurante.getNome() + " do tipo: "
+                    + Restaurante.class.getName() + " já existe!");
+        }
+    }
+
+    private void objectCozinhaNotExistent(Long id) {
+        final var obj = cozinhaRepository.findById(id);
+        if (obj.isEmpty()) {
+            throw new ObjectNotFoundException("Objeto não encontrado ID: "
+                    + id + " do tipo: " + Cozinha.class.getName());
         }
     }
 

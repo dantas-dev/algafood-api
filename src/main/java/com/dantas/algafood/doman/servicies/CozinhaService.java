@@ -57,13 +57,12 @@ public class CozinhaService {
     }
 
     private void requireNonExistentObjectInDB(Cozinha cozinha) {
-        final var obj = repository.findAll();
-        for (Cozinha list : obj) {
-            if (cozinha.getNome().equals(list.getNome())) {
-                throw new ObjectExistingException("Objeto não encontrado ID: "
-                        + cozinha.getNome() + " do tipo: "
-                        + Cozinha.class.getName());
-            }
+        final var obj = repository.findByNome(cozinha.getNome());
+        if (obj != null) {
+            throw new ObjectExistingException("Objeto não encontrado ID: "
+                    + cozinha.getNome() + " do tipo: "
+                    + Cozinha.class.getName());
         }
     }
+
 }

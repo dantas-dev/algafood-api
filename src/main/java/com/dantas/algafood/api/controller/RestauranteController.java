@@ -23,7 +23,7 @@ public class RestauranteController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Restaurante> findById(@PathVariable Long id){
+    public ResponseEntity<Restaurante> findById(@PathVariable Long id) {
         final var obj = service.findById(id);
         return ResponseEntity.ok(obj);
     }
@@ -35,7 +35,7 @@ public class RestauranteController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Restaurante> delete(@PathVariable Long id){
+    public ResponseEntity<Restaurante> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
