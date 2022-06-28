@@ -8,10 +8,15 @@ import com.dantas.algafood.doman.servicies.exceptions.BadRequestException;
 import com.dantas.algafood.doman.servicies.exceptions.EntityInUseException;
 import com.dantas.algafood.doman.servicies.exceptions.ObjectExistingException;
 import com.dantas.algafood.doman.servicies.exceptions.ObjectNotFoundException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.el.util.ReflectionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RestauranteService {
@@ -65,6 +70,17 @@ public class RestauranteService {
         return repository.save(obj.get());
     }
 
+    public Restaurante partialUpdate(Long id, Map<String, Object> campos) {
+        final var obj = repository.findById(id);
+        if (obj.isEmpty()) {
+            throw new ObjectNotFoundException("Objeto não encontrado ID: "
+                    + id + " do tipo: " + Restaurante.class.getName());
+        }
+        merge(campos, obj.get());
+        requireNonExistentObjectInDB(obj.get());
+        return repository.save(obj.get());
+    }
+
     private void requireNonExistentObjectInDB(Restaurante restaurante) {
         final var obj = repository.findByNome(restaurante.getNome());
         if (obj != null) {
@@ -82,4 +98,14 @@ public class RestauranteService {
         }
     }
 
+    private void merge(Map<String, Object> campos, Restaurante restaurante) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        final var restauranteOrigem = objectMapper.convertValue(campos, Restaurante.class);
+        campos.forEach((chave, valor) -> {
+            final var field = ReflectionUtils.findField(Restaurante.class, chave);
+            field.setAccessible(true);
+            Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);
+            ReflectionUtils.setField(field, restaurante, novoValor);
+        });
+    }
 }

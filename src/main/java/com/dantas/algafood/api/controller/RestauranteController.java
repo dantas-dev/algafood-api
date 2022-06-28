@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/restaurantes")
@@ -44,5 +45,11 @@ public class RestauranteController {
     public ResponseEntity<Restaurante> update(@PathVariable Long id, @RequestBody Restaurante restaurante) {
         final var update = service.update(id, restaurante);
         return ResponseEntity.ok(update);
+    }
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<Restaurante> partialUpdate(@PathVariable Long id, @RequestBody Map<String, Object> campo) {
+        final var partialUpdate = service.partialUpdate(id, campo);
+        return ResponseEntity.ok(partialUpdate);
     }
 }
