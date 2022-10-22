@@ -1,11 +1,11 @@
-package com.dantas.algafood.doman.servicies;
+package com.dantas.algafood.domain.servicies;
 
-import com.dantas.algafood.doman.model.Cozinha;
-import com.dantas.algafood.doman.model.Restaurante;
-import com.dantas.algafood.doman.repositories.CozinhaRepository;
-import com.dantas.algafood.doman.servicies.exceptions.EntityInUseException;
-import com.dantas.algafood.doman.servicies.exceptions.ObjectExistingException;
-import com.dantas.algafood.doman.servicies.exceptions.ObjectNotFoundException;
+import com.dantas.algafood.domain.model.Cozinha;
+import com.dantas.algafood.domain.model.Restaurante;
+import com.dantas.algafood.domain.repositories.CozinhaRepository;
+import com.dantas.algafood.domain.servicies.exceptions.EntityInUseException;
+import com.dantas.algafood.domain.servicies.exceptions.ObjectExistingException;
+import com.dantas.algafood.domain.servicies.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,11 +57,10 @@ public class CozinhaService {
     }
 
     private void requireNonExistentObjectInDB(Cozinha cozinha) {
-        final var obj = repository.findByNome(cozinha.getNome());
-        if (obj != null) {
-            throw new ObjectExistingException("Objeto não encontrado ID: "
-                    + cozinha.getNome() + " do tipo: "
-                    + Cozinha.class.getName());
+        final var obj = repository.findCozinhaByNome(cozinha.getNome());
+        if (obj.get() != null) {
+            throw new ObjectExistingException("Um objeto com o nome: " + cozinha.getNome() + " do tipo: "
+					+ Cozinha.class.getName() + " já existe!");
         }
     }
 

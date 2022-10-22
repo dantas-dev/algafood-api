@@ -1,12 +1,15 @@
-package com.dantas.algafood.doman.servicies;
+package com.dantas.algafood.domain.servicies;
 
-import com.dantas.algafood.doman.model.Cidade;
-import com.dantas.algafood.doman.repositories.CidadeRepository;
-import com.dantas.algafood.doman.repositories.EstadoRepository;
-import com.dantas.algafood.doman.servicies.exceptions.BadRequestException;
-import com.dantas.algafood.doman.servicies.exceptions.EntityInUseException;
-import com.dantas.algafood.doman.servicies.exceptions.ObjectExistingException;
-import com.dantas.algafood.doman.servicies.exceptions.ObjectNotFoundException;
+import com.dantas.algafood.domain.model.Cidade;
+import com.dantas.algafood.domain.repositories.CidadeRepository;
+import com.dantas.algafood.domain.repositories.EstadoRepository;
+import com.dantas.algafood.domain.servicies.exceptions.BadRequestException;
+import com.dantas.algafood.domain.servicies.exceptions.EntityInUseException;
+import com.dantas.algafood.domain.servicies.exceptions.ObjectExistingException;
+import com.dantas.algafood.domain.servicies.exceptions.ObjectNotFoundException;
+
+import lombok.val;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +66,7 @@ public class CidadeService {
     }
 
     private void requireNonExistentObjectInDB(Cidade cidade) {
-        final var obj = repository.findByNome(cidade.getNome());
+        final var obj = repository.findCidadeByNome(cidade.getNome());
         if (obj != null) {
             throw new ObjectExistingException("Um objeto com o nome: "
                     + cidade.getNome() + " do tipo: "
@@ -78,4 +81,5 @@ public class CidadeService {
                     + id);
         }
     }
+
 }

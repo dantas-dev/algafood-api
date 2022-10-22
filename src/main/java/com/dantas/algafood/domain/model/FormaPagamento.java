@@ -1,4 +1,4 @@
-package com.dantas.algafood.doman.model;
+package com.dantas.algafood.domain.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,22 +10,24 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_estado")
-public class Estado implements Serializable {
+@Table(name = "tb_forma_pagamento")
+public class FormaPagamento implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String nome;
+    private String descricao;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Estado estado = (Estado) o;
-        return Objects.equals(id, estado.id);
+        FormaPagamento that = (FormaPagamento) o;
+        return Objects.equals(id, that.id);
     }
 
     @Override

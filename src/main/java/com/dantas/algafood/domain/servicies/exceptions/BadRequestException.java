@@ -1,8 +1,10 @@
-package com.dantas.algafood.doman.servicies.exceptions;
+package com.dantas.algafood.domain.servicies.exceptions;
 
 public class BadRequestException extends RuntimeException{
 
-    public BadRequestException(String message) {
+ 	private static final long serialVersionUID = 1L;
+
+	public BadRequestException(String message) {
         super(message);
     }
 

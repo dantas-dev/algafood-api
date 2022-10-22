@@ -1,7 +1,7 @@
 package com.dantas.algafood.api.controller;
 
-import com.dantas.algafood.doman.model.Estado;
-import com.dantas.algafood.doman.servicies.EstadoService;
+import com.dantas.algafood.domain.model.Estado;
+import com.dantas.algafood.domain.servicies.EstadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,10 +1,10 @@
-package com.dantas.algafood.doman.servicies;
+package com.dantas.algafood.domain.servicies;
 
-import com.dantas.algafood.doman.model.Estado;
-import com.dantas.algafood.doman.repositories.EstadoRepository;
-import com.dantas.algafood.doman.servicies.exceptions.EntityInUseException;
-import com.dantas.algafood.doman.servicies.exceptions.ObjectExistingException;
-import com.dantas.algafood.doman.servicies.exceptions.ObjectNotFoundException;
+import com.dantas.algafood.domain.model.Estado;
+import com.dantas.algafood.domain.repositories.EstadoRepository;
+import com.dantas.algafood.domain.servicies.exceptions.EntityInUseException;
+import com.dantas.algafood.domain.servicies.exceptions.ObjectExistingException;
+import com.dantas.algafood.domain.servicies.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,8 +56,8 @@ public class EstadoService {
     }
 
     private void requireNonExistentObjectInDB(Estado estado) {
-        final var obj = repository.findByNome(estado.getNome());
-        if (obj != null) {
+        final var obj = repository.getNomeEstado(estado.getNome());
+        if (obj.get() != null) {
             throw new ObjectExistingException("Um objeto com o nome: "
                     + estado.getNome() + " do tipo: "
                     + Estado.class.getName() + " já existe!");

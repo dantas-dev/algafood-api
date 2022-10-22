@@ -1,4 +1,4 @@
-package com.dantas.algafood.doman.model;
+package com.dantas.algafood.domain.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +10,10 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_cidade")
-public class Cidade implements Serializable {
+@Table(name = "tb_permissao")
+public class Permissao implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,16 +22,15 @@ public class Cidade implements Serializable {
     @Column(nullable = false)
     private String nome;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Estado estado;
+    @Column(nullable = false)
+    private String descricao;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Cidade cidade = (Cidade) o;
-        return Objects.equals(id, cidade.id);
+        Permissao permissao = (Permissao) o;
+        return Objects.equals(id, permissao.id);
     }
 
     @Override

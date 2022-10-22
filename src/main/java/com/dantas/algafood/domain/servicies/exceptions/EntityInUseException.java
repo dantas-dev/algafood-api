@@ -1,6 +1,8 @@
-package com.dantas.algafood.doman.servicies.exceptions;
+package com.dantas.algafood.domain.servicies.exceptions;
 
 public class EntityInUseException extends RuntimeException {
+	
+	private static final long serialVersionUID = 1L;
 
     public EntityInUseException(String message) {
         super(message);

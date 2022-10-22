@@ -1,7 +1,7 @@
 package com.dantas.algafood.api.controller;
 
-import com.dantas.algafood.doman.model.Cidade;
-import com.dantas.algafood.doman.servicies.CidadeService;
+import com.dantas.algafood.domain.model.Cidade;
+import com.dantas.algafood.domain.servicies.CidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
