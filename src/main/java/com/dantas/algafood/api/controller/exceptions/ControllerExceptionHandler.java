@@ -1,9 +1,9 @@
 package com.dantas.algafood.api.controller.exceptions;
 
-import com.dantas.algafood.domain.servicies.exceptions.BadRequestException;
-import com.dantas.algafood.domain.servicies.exceptions.EntityInUseException;
-import com.dantas.algafood.domain.servicies.exceptions.ObjectExistingException;
-import com.dantas.algafood.domain.servicies.exceptions.ObjectNotFoundException;
+import com.dantas.algafood.exception.BadRequestException;
+import com.dantas.algafood.exception.EntityInUseException;
+import com.dantas.algafood.exception.ObjectExistingException;
+import com.dantas.algafood.exception.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -17,9 +17,9 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import com.dantas.algafood.domain.model.Restaurante;
-import com.dantas.algafood.domain.repositories.RestauranteRepository;
-import com.dantas.algafood.domain.repositories.spec.RestauranteSpecs;
+import com.dantas.algafood.entity.Restaurante;
+import com.dantas.algafood.repository.RestauranteRepository;
+import com.dantas.algafood.repository.spec.RestauranteSpecs;
 
 @Repository
 public class RestauranteRepositoryImpl {
